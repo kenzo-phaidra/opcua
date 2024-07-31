@@ -9,7 +9,6 @@ require (
 	golang.org/x/term v0.8.0
 )
 
-require (
-	github.com/pkg/errors v0.9.1 // indirect
-	golang.org/x/sys v0.8.0 // indirect
-)
+require golang.org/x/sys v0.8.0 // indirect
+
+replace github.com/gopcua/opcua => github.com/kenzo-phaidra/opcua v0.1.2
