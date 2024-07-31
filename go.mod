@@ -1,4 +1,4 @@
-module github.com/gopcua/opcua
+module github.com/kenzo-phaidra/opcua
 
 go 1.20
 

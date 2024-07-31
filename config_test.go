@@ -707,7 +707,7 @@ func TestOptions(t *testing.T) {
 		},
 		{
 			name: `Dialer()`,
-			opt: Dialer(&uacp.Dialer{
+			opt: Dialer(&uacp.StandardDialer{
 				Dialer: &net.Dialer{Timeout: 3 * time.Second},
 				ClientACK: &uacp.Acknowledge{
 					MaxMessageSize: 1,
@@ -717,7 +717,7 @@ func TestOptions(t *testing.T) {
 				},
 			}),
 			cfg: &Config{
-				dialer: &uacp.Dialer{
+				dialer: &uacp.StandardDialer{
 					Dialer: &net.Dialer{Timeout: 3 * time.Second},
 					ClientACK: &uacp.Acknowledge{
 						MaxMessageSize: 1,
@@ -732,7 +732,7 @@ func TestOptions(t *testing.T) {
 			name: `DialTimeout(5s)`,
 			opt:  DialTimeout(5 * time.Second),
 			cfg: &Config{
-				dialer: &uacp.Dialer{
+				dialer: &uacp.StandardDialer{
 					Dialer:    &net.Dialer{Timeout: 5 * time.Second},
 					ClientACK: uacp.DefaultClientACK,
 				},
@@ -742,8 +742,8 @@ func TestOptions(t *testing.T) {
 			name: `MaxMessageSize()`,
 			opt:  MaxMessageSize(5),
 			cfg: &Config{
-				dialer: func() *uacp.Dialer {
-					d := &uacp.Dialer{
+				dialer: func() *uacp.StandardDialer {
+					d := &uacp.StandardDialer{
 						Dialer:    &net.Dialer{},
 						ClientACK: uacp.DefaultClientACK,
 					}
@@ -756,8 +756,8 @@ func TestOptions(t *testing.T) {
 			name: `MaxChunkCount()`,
 			opt:  MaxChunkCount(5),
 			cfg: &Config{
-				dialer: func() *uacp.Dialer {
-					d := &uacp.Dialer{
+				dialer: func() *uacp.StandardDialer {
+					d := &uacp.StandardDialer{
 						Dialer:    &net.Dialer{},
 						ClientACK: uacp.DefaultClientACK,
 					}
@@ -770,8 +770,8 @@ func TestOptions(t *testing.T) {
 			name: `ReceiveBufferSize()`,
 			opt:  ReceiveBufferSize(5),
 			cfg: &Config{
-				dialer: func() *uacp.Dialer {
-					d := &uacp.Dialer{
+				dialer: func() *uacp.StandardDialer {
+					d := &uacp.StandardDialer{
 						Dialer:    &net.Dialer{},
 						ClientACK: uacp.DefaultClientACK,
 					}
@@ -784,8 +784,8 @@ func TestOptions(t *testing.T) {
 			name: `SendBufferSize()`,
 			opt:  SendBufferSize(5),
 			cfg: &Config{
-				dialer: func() *uacp.Dialer {
-					d := &uacp.Dialer{
+				dialer: func() *uacp.StandardDialer {
+					d := &uacp.StandardDialer{
 						Dialer:    &net.Dialer{},
 						ClientACK: uacp.DefaultClientACK,
 					}

@@ -56,8 +56,12 @@ func nextid() uint32 {
 	return atomic.AddUint32(&connid, 1)
 }
 
-// Dialer establishes a connection to an endpoint.
-type Dialer struct {
+type Dialer interface {
+	Dial(ctx context.Context, endpoint string) (*Conn, error)
+}
+
+// StandardDialer establishes a connection to an endpoint.
+type StandardDialer struct {
 	// Dialer establishes the TCP connection. Defaults to net.Dialer.
 	Dialer *net.Dialer
 
@@ -66,7 +70,7 @@ type Dialer struct {
 	ClientACK *Acknowledge
 }
 
-func (d *Dialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
+func (d *StandardDialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
 	debug.Printf("uacp: connecting to %s", endpoint)
 	_, raddr, err := ResolveEndpoint(endpoint)
 	if err != nil {
@@ -98,9 +102,24 @@ func (d *Dialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
 	return conn, nil
 }
 
+// ReverseConnectDialer receives connections from a listener following a reverse hello
+type ReverseConnectDialer struct {
+	// ConnChan is a channel to receive connections from the listener
+	connChan <-chan *Conn
+}
+
+func (d *ReverseConnectDialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
+	select {
+	case conn := <-d.connChan:
+		return conn, nil
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
 // Dial uses the default dialer to establish a connection to the endpoint
 func Dial(ctx context.Context, endpoint string) (*Conn, error) {
-	d := &Dialer{}
+	d := &StandardDialer{}
 	return d.Dial(ctx, endpoint)
 }
 

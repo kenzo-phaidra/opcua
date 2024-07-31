@@ -53,15 +53,20 @@ func DefaultSessionConfig() *uasc.SessionConfig {
 
 // Config contains all config options.
 type Config struct {
-	dialer  *uacp.Dialer
+	reverse bool
+	dialer  uacp.Dialer
 	sechan  *uasc.Config
 	session *uasc.SessionConfig
 }
 
 // NewDialer creates a uacp.Dialer from the config options
-func NewDialer(cfg *Config) *uacp.Dialer {
+func NewDialer(cfg *Config) uacp.Dialer {
+	if cfg.reverse {
+		return &uacp.ReverseConnectDialer{}
+	}
+
 	if cfg.dialer == nil {
-		return &uacp.Dialer{}
+		return &uacp.StandardDialer{}
 	}
 	return cfg.dialer
 }
@@ -507,7 +512,7 @@ func RequestTimeout(t time.Duration) Option {
 }
 
 // Dialer sets the uacp.Dialer to establish the connection to the server.
-func Dialer(d *uacp.Dialer) Option {
+func Dialer(d uacp.Dialer) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
 		cfg.dialer = d
@@ -520,7 +525,12 @@ func Dialer(d *uacp.Dialer) Option {
 func DialTimeout(d time.Duration) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
-		cfg.dialer.Dialer.Timeout = d
+		dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+		if !ok {
+			return nil
+		}
+
+		dialer.Dialer.Timeout = d
 		return nil
 	}
 }
@@ -529,7 +539,12 @@ func DialTimeout(d time.Duration) Option {
 func MaxMessageSize(n uint32) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
-		cfg.dialer.ClientACK.MaxMessageSize = n
+		dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+		if !ok {
+			return nil
+		}
+
+		dialer.ClientACK.MaxMessageSize = n
 		return nil
 	}
 }
@@ -538,7 +553,12 @@ func MaxMessageSize(n uint32) Option {
 func MaxChunkCount(n uint32) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
-		cfg.dialer.ClientACK.MaxChunkCount = n
+		dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+		if !ok {
+			return nil
+		}
+
+		dialer.ClientACK.MaxChunkCount = n
 		return nil
 	}
 }
@@ -547,7 +567,12 @@ func MaxChunkCount(n uint32) Option {
 func ReceiveBufferSize(n uint32) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
-		cfg.dialer.ClientACK.ReceiveBufSize = n
+		dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+		if !ok {
+			return nil
+		}
+
+		dialer.ClientACK.ReceiveBufSize = n
 		return nil
 	}
 }
@@ -556,19 +581,29 @@ func ReceiveBufferSize(n uint32) Option {
 func SendBufferSize(n uint32) Option {
 	return func(cfg *Config) error {
 		initDialer(cfg)
-		cfg.dialer.ClientACK.SendBufSize = n
+		dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+		if !ok {
+			return nil
+		}
+
+		dialer.ClientACK.SendBufSize = n
 		return nil
 	}
 }
 
 func initDialer(cfg *Config) {
+	dialer, ok := cfg.dialer.(*uacp.StandardDialer)
+	if !ok {
+		return
+	}
+
 	if cfg.dialer == nil {
-		cfg.dialer = &uacp.Dialer{}
+		cfg.dialer = &uacp.StandardDialer{}
 	}
-	if cfg.dialer.Dialer == nil {
-		cfg.dialer.Dialer = &net.Dialer{}
+	if dialer.Dialer == nil {
+		dialer.Dialer = &net.Dialer{}
 	}
-	if cfg.dialer.ClientACK == nil {
-		cfg.dialer.ClientACK = uacp.DefaultClientACK
+	if dialer.ClientACK == nil {
+		dialer.ClientACK = uacp.DefaultClientACK
 	}
 }
