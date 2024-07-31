@@ -108,6 +108,10 @@ type ReverseConnectDialer struct {
 	connChan <-chan *Conn
 }
 
+func NewReverseConnectDialer(connChan <-chan *Conn) *ReverseConnectDialer {
+	return &ReverseConnectDialer{connChan: connChan}
+}
+
 func (d *ReverseConnectDialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
 	select {
 	case conn := <-d.connChan:
