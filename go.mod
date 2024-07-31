@@ -11,4 +11,4 @@ require (
 
 require golang.org/x/sys v0.8.0 // indirect
 
-replace github.com/gopcua/opcua v0.5.3 => github.com/kenzo-phaidra/opcua v0.1.1
+replace github.com/gopcua/opcua v0.5.3 => github.com/kenzo-phaidra/opcua v0.1.2

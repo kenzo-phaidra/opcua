@@ -1,5 +1,5 @@
-github.com/kenzo-phaidra/opcua v0.1.1 h1:Eqw/2UCUXsHiIYRwLEFOfxDs0d3ZgG6UjFI7bP88Lew=
-github.com/kenzo-phaidra/opcua v0.1.1/go.mod h1:CCfHIFxIdIWrcfA5JHC2vRf6U25LLzrcDBvMgUY5Ho8=
+github.com/kenzo-phaidra/opcua v0.1.2 h1:XGeCRG6LnxCYrUWmmOefXfv2bMsPBdQgbzKHv/bMwSw=
+github.com/kenzo-phaidra/opcua v0.1.2/go.mod h1:ObmJOHC1tF2hFpy+KdsutvuYQ4iGvjDY9KZdS1UHi5s=
 github.com/pascaldekloe/goe v0.1.1 h1:Ah6WQ56rZONR3RW3qWa2NCZ6JAVvSpUcoLBaOmYFt9Q=
 github.com/pascaldekloe/goe v0.1.1/go.mod h1:KSyfaxQOh0HZPjDP1FL/kFtbqYqrALJTaMafFUIccqU=
 golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1 h1:k/i9J1pBpvlfR+9QsetwPyERsqu1GIbi967PQMq3Ivc=
