@@ -113,12 +113,22 @@ func NewReverseConnectDialer(connChan <-chan *Conn) *ReverseConnectDialer {
 }
 
 func (d *ReverseConnectDialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
+	var conn *Conn
+
 	select {
-	case conn := <-d.connChan:
-		return conn, nil
+	case conn = <-d.connChan:
 	case <-ctx.Done():
 		return nil, ctx.Err()
 	}
+
+	debug.Printf("uacp %d: start HEL/ACK handshake", conn.id)
+	if err := conn.Handshake(ctx, endpoint); err != nil {
+		debug.Printf("uacp %d: HEL/ACK handshake failed: %s", conn.id, err)
+		conn.Close()
+		return nil, err
+	}
+
+	return conn, nil
 }
 
 // Dial uses the default dialer to establish a connection to the endpoint
