@@ -342,7 +342,7 @@ func (c *Conn) srvhandshake(endpoint string) error {
 		debug.Printf("uacp %d: connecting to %s", c.id, rhe.ServerURI)
 		c.Close()
 		var dialer net.Dialer
-		c2, err := dialer.DialContext(context.Background(), "tcp", rhe.ServerURI)
+		c2, err := dialer.DialContext(context.Background(), "tcp", rhe.EndpointURL)
 		if err != nil {
 			return err
 		}
