@@ -61,7 +61,7 @@ type Config struct {
 
 // NewDialer creates a uacp.Dialer from the config options
 func NewDialer(cfg *Config) uacp.Dialer {
-	if cfg.reverse {
+	if cfg.reverse && cfg.dialer == nil {
 		return &uacp.ReverseConnectDialer{}
 	}
 
