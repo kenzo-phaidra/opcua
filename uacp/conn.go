@@ -338,15 +338,18 @@ func (c *Conn) srvhandshake(endpoint string) error {
 			c.SendError(ua.StatusBadTCPInternalError)
 			return err
 		}
-
-		debug.Printf("uacp %d: connecting to %s", c.id, rhe.ServerURI)
-		c.Close()
-		var dialer net.Dialer
-		c2, err := dialer.DialContext(context.Background(), "tcp", rhe.EndpointURL)
-		if err != nil {
-			return err
-		}
-		c.TCPConn = c2.(*net.TCPConn)
+		// if rhe.EndpointURL != endpoint {
+		// 	c.SendError(ua.StatusBadTCPEndpointURLInvalid)
+		// 	return errors.Errorf("uacp: invalid endpoint url %s", rhe.EndpointURL)
+		// }
+		// debug.Printf("uacp %d: connecting to %s", c.id, rhe.ServerURI)
+		// c.Close()
+		// var dialer net.Dialer
+		// c2, err := dialer.DialContext(context.Background(), "tcp", rhe.ServerURI)
+		// if err != nil {
+		// 	return err
+		// }
+		// c.TCPConn = c2.(*net.TCPConn)
 		debug.Printf("uacp %d: recv %#v", c.id, rhe)
 		return nil
 
