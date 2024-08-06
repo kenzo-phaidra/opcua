@@ -10,9 +10,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gopcua/opcua"
-	"github.com/gopcua/opcua/debug"
-	"github.com/gopcua/opcua/ua"
+	"github.com/kenzo-phaidra/opcua"
+	"github.com/kenzo-phaidra/opcua/debug"
+	"github.com/kenzo-phaidra/opcua/ua"
 )
 
 func main() {

@@ -19,11 +19,11 @@ import (
 
 	"golang.org/x/term"
 
-	"github.com/gopcua/opcua"
-	"github.com/gopcua/opcua/debug"
-	"github.com/gopcua/opcua/errors"
-	"github.com/gopcua/opcua/ua"
-	"github.com/gopcua/opcua/uatest"
+	"github.com/kenzo-phaidra/opcua"
+	"github.com/kenzo-phaidra/opcua/debug"
+	"github.com/kenzo-phaidra/opcua/errors"
+	"github.com/kenzo-phaidra/opcua/ua"
+	"github.com/kenzo-phaidra/opcua/uatest"
 )
 
 var (

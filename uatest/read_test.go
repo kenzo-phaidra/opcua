@@ -9,8 +9,8 @@ import (
 
 	"github.com/pascaldekloe/goe/verify"
 
-	"github.com/gopcua/opcua"
-	"github.com/gopcua/opcua/ua"
+	"github.com/kenzo-phaidra/opcua"
+	"github.com/kenzo-phaidra/opcua/ua"
 )
 
 // TestRead performs an integration test to read values

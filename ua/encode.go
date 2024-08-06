@@ -11,8 +11,8 @@ import (
 	"reflect"
 	"time"
 
-	"github.com/gopcua/opcua/debug"
-	"github.com/gopcua/opcua/errors"
+	"github.com/kenzo-phaidra/opcua/debug"
+	"github.com/kenzo-phaidra/opcua/errors"
 )
 
 // debugCodec enables printing of debug messages in the opcua codec.

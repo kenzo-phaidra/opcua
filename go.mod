@@ -3,12 +3,9 @@ module github.com/kenzo-phaidra/opcua
 go 1.20
 
 require (
-	github.com/gopcua/opcua v0.5.3
 	github.com/pascaldekloe/goe v0.1.1
 	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
 	golang.org/x/term v0.8.0
 )
 
 require golang.org/x/sys v0.8.0 // indirect
-
-replace github.com/gopcua/opcua => github.com/kenzo-phaidra/opcua v0.1.2

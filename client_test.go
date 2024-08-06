@@ -6,8 +6,8 @@ import (
 
 	"github.com/pascaldekloe/goe/verify"
 
-	"github.com/gopcua/opcua/id"
-	"github.com/gopcua/opcua/ua"
+	"github.com/kenzo-phaidra/opcua/id"
+	"github.com/kenzo-phaidra/opcua/ua"
 )
 
 func TestClient_Send_DoesNotPanicWhenDisconnected(t *testing.T) {

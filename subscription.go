@@ -6,12 +6,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gopcua/opcua/debug"
-	"github.com/gopcua/opcua/errors"
-	"github.com/gopcua/opcua/id"
-	"github.com/gopcua/opcua/stats"
-	"github.com/gopcua/opcua/ua"
-	"github.com/gopcua/opcua/uasc"
+	"github.com/kenzo-phaidra/opcua/debug"
+	"github.com/kenzo-phaidra/opcua/errors"
+	"github.com/kenzo-phaidra/opcua/id"
+	"github.com/kenzo-phaidra/opcua/stats"
+	"github.com/kenzo-phaidra/opcua/ua"
+	"github.com/kenzo-phaidra/opcua/uasc"
 )
 
 const (

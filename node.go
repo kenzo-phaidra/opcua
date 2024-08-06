@@ -8,8 +8,8 @@ import (
 	"context"
 	"strings"
 
-	"github.com/gopcua/opcua/id"
-	"github.com/gopcua/opcua/ua"
+	"github.com/kenzo-phaidra/opcua/id"
+	"github.com/kenzo-phaidra/opcua/ua"
 )
 
 // Node is a high-level object to interact with a node in the
