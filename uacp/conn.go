@@ -5,6 +5,7 @@
 package uacp
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"io"
@@ -106,6 +107,7 @@ func (d *StandardDialer) Dial(ctx context.Context, endpoint string) (*Conn, erro
 type ReverseConnectDialer struct {
 	// ConnChan is a channel to receive connections from the listener
 	connChan <-chan *Conn
+	current  *Conn
 }
 
 func NewReverseConnectDialer(connChan <-chan *Conn) *ReverseConnectDialer {
@@ -113,7 +115,18 @@ func NewReverseConnectDialer(connChan <-chan *Conn) *ReverseConnectDialer {
 }
 
 func (d *ReverseConnectDialer) Dial(ctx context.Context, endpoint string) (*Conn, error) {
-	var conn *Conn
+	conn := d.current
+
+	if conn != nil {
+		r := bufio.NewReader(conn.TCPConn)
+		_, err := r.Peek(1) // check if the connection is still alive
+		if err == nil {
+			return conn, nil
+		}
+
+		conn.Close()
+		d.current = nil
+	}
 
 	select {
 	case conn = <-d.connChan:
